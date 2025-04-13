@@ -41,10 +41,17 @@ jobs:
         npm install
         npm run build
 
+    - name: Wait for MySQL to be ready
+      run: |
+        until mysqladmin ping -h mysql --silent; do
+          echo "Waiting for MySQL..."
+          sleep 5
+        done
+
     - name: 🔄 Migrate & Seed Database
       env:
         DB_CONNECTION: mysql
-        DB_HOST: 127.0.0.1
+        DB_HOST: mysql
         DB_PORT: 3306
         DB_DATABASE: biblioshop
         DB_USERNAME: root
@@ -54,3 +61,11 @@ jobs:
     - name: 🐳 Build Docker Image
       run: docker build -t biblio_app .
 
+    - name: Run Docker container
+      run: |
+        docker run -d -p 8000:8000 --name biblio_app_container biblio_app
+        sleep 10  # Attendre quelques secondes pour que l'app se lance
+
+    - name: Test Application in Docker container
+      run: |
+        curl -s http://localhost:8000 || exit 1  # Tester si l'application répond
