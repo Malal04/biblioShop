@@ -88,29 +88,6 @@
                 </tbody>
             </table>
         </div>
-        
-        <!-- Monthly Books Sold by Category -->
-        <div class="books">
-            <h3>Livres vendus par mois par catégorie</h3>
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr class="table-row">
-                        <th>Catégorie</th>
-                        <th>Mois</th>
-                        <th>Livres Vendus</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-                    @foreach($livresVendusParCategorieParMois as $data)
-                        <tr class="table-row">
-                            <td>{{ $data->category_name }}</td>
-                            <td>{{ \Carbon\Carbon::create()->month($data->month)->format('F') }}</td>
-                            <td>{{ $data->total_books_sold }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
 
         <!-- Monthly Recettes -->
         <div class="books">
@@ -174,6 +151,29 @@
                                 <td>{{ $commande->created_at->format('d-m-Y') }}</td>
                             </tr>
                         @endforeach
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Monthly Books Sold by Category -->
+        <div class="books">
+            <h3>Livres vendus par mois par catégorie</h3>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr class="table-row">
+                        <th>Catégorie</th>
+                        <th>Mois</th>
+                        <th>Livres Vendus</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    @foreach($livresVendusParCategorieParMois as $data)
+                        <tr class="table-row">
+                            <td>{{ $data->category_name }}</td>
+                            <td>{{ \Carbon\Carbon::create()->month($data->month)->format('F') }}</td>
+                            <td>{{ $data->total_books_sold }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
