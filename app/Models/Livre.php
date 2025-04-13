@@ -14,12 +14,19 @@ class Livre extends Model
         'description',
         'stock',
         'categorie_id',
+        'views',
+        'sales_count',
     ];
 
-    // Relation avec la table 'categories'
     public function categorie()
     {
         return $this->belongsTo(Categorie::class);
+    }
+
+    public function incrementViews()
+    {
+        $this->increment('views');
+        $this->save();
     }
     
 }

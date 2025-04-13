@@ -10,14 +10,14 @@
         @csrf
 
         <!-- Email Address -->
-        <div class="auth__input">
+        <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')"  />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="auth_button">
-            <x-primary-button class="auth_button">>
+        <div class="flex items-center justify-end mt-4">
+            <x-primary-button>
                 {{ __('Email Password Reset Link') }}
             </x-primary-button>
         </div>

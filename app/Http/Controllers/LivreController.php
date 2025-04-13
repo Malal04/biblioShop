@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NouveauLivreMail;
 use App\Models\Categorie;
 use App\Models\Livre;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class LivreController extends Controller
 {
@@ -20,6 +23,7 @@ class LivreController extends Controller
     public function create()
     {
         $categories = Categorie::all();
+
         return view('dashboard.livre.lcreate', compact('categories'));
     }
 
@@ -38,17 +42,19 @@ class LivreController extends Controller
 
         $data = $request->all();
 
-        // Si une image est envoyée, on la sauvegarde et on ajoute son chemin
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('livres_images');
+            $data['image'] = $request->file('image')->store('images','public');
         }
 
-        Livre::create($data);
+        $livre = Livre::create($data);
 
+        $users = User::where('role', 'client')->get();
+        foreach ($users as $user) {
+            Mail::to($user->email)->queue(new NouveauLivreMail($livre));
+        }
         return redirect()->route('dashboard.livre.lIndex')->with('success', 'Livre ajouté avec succès.');
     }
 
-    // Afficher le formulaire pour modifier un livre
     public function edit($id)
     {
         $livre = Livre::findOrFail($id);
@@ -56,7 +62,6 @@ class LivreController extends Controller
         return view('dashboard.livre.lEdit', compact('livre', 'categories'));
     }
 
-    // Mettre à jour un livre
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -72,13 +77,11 @@ class LivreController extends Controller
         $livre = Livre::findOrFail($id);
         $data = $request->all();
 
-        // Si une image est envoyée, on la sauvegarde et on ajoute son chemin
         if ($request->hasFile('image')) {
-            // Supprimer l'ancienne image si elle existe
             if ($livre->image && Storage::exists($livre->image)) {
                 Storage::delete($livre->image);
             }
-            $data['image'] = $request->file('image')->store('livres_images');
+            $data['image'] = $request->file('image')->store('images','public');
         }
 
         $livre->update($data);
@@ -100,4 +103,12 @@ class LivreController extends Controller
 
         return redirect()->route('dashboard.livre.lIndex')->with('success', 'Livre supprimé avec succès.');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $livres = Livre::where('titre', 'like', "%{$search}%")->get();
+        return view('dashboard.livre.lindex', compact('livres'));
+    }
+    
 }

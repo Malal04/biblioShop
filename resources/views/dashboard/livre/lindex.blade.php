@@ -15,10 +15,10 @@
                 </li>
             </ul>
         </div>
-        <a href="#" class="btn-download">
+        {{-- <a href="#" class="btn-download">
             <i class='bx bxs-cloud-download' ></i>
             <span class="text">Download PDF</span>
-        </a>
+        </a> --}}
     </div>
 
     @if(session('success'))
@@ -52,6 +52,7 @@
                 <tr>
                     <th>Titre</th>
                     <th>Auteur</th>
+                    <th>Stock</th>
                     <th>Prix</th>
                     <th>Catégorie</th>
                     <th>Modifier</th>
@@ -63,6 +64,7 @@
                     <tr>
                         <td>{{ $livre->titre }}</td>
                         <td>{{ $livre->auteur }}</td>
+                        <td>{{ $livre->stock }}</td>
                         <td>{{ $livre->prix }}</td>
                         <td>{{ $livre->categorie->nom }}</td>
                         <td>

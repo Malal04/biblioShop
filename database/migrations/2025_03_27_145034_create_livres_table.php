@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->integer('stock')->default(0);
+            $table->integer('views')->default(0);
+            $table->integer('sales_count')->default(0);
             $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
@@ -31,4 +33,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('livres');
     }
+
 };

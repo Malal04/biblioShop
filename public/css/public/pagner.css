@@ -1,0 +1,128 @@
+#cart-container {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 350px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  z-index: 9999;
+  overflow-y: auto;
+  transition: right 0.3s ease;
+}
+
+#cart-container.open {
+  right: 0;
+}
+
+#close-cart {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  float: right;
+  font-weight: bold;
+}
+
+#close-cart:hover {
+  background-color: #c82333;
+}
+
+#cart-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+#cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cart-item span {
+  font-size: 14px;
+}
+
+.cart-item .item-quantite {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.cart-item .item-prix {
+  color: #28a745;
+}
+
+.remove-item {
+  background-color: transparent;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 14px;
+  align-self: flex-start;
+}
+
+#cart-total {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+#commander-btn {
+  display: block;
+  width: 100%;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 0;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+#commander-btn:hover {
+  background-color: #0056b3;
+}
+
+#cart-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  position: absolute;
+  top: -6px;
+  right: -10px;
+}
+
+/* Notification rouge sur le panier */
+#show-cart {
+  position: relative;
+}
+
+#cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  display: none;
+}

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('statut', ['en attente', 'en preparation', 'expédiée', 'payée'])->default('en attente');
-            $table->decimal('prix_total', 8, 2);
+            $table->decimal('prix_total', 8, 2)->default(0); // Valeur par défaut ici
             $table->timestamp('date_paiement')->nullable();
             $table->timestamps();
         });
@@ -28,4 +28,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('commandes');
     }
+    
 };

@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ asset('css/dashboard/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard/categorie.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard/content.css') }}">
 </head>
 <body>
     <!-- SIDEBAR -->
@@ -63,17 +65,25 @@
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="#">
+                <a href="{{ route('profile.edit') }}">
                     <i class='bx bxs-cog'></i>
-                    <span class="text">Settings</span>
+                    <span class="text">Profile</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="logout">
-                    <i class='bx bxs-log-out-circle'></i>
-                    <span class="text">Logout</span>
-                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a href="{{ route('logout') }}" class="logout">
+                        <i class='bx bxs-log-out-circle'></i>
+                        <x-dropdown-link :href="route('logout')"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </a>
+                </form>
             </li>
+
         </ul>
     </section>
     <!-- SIDEBAR -->
@@ -83,9 +93,9 @@
         <nav>
             <i class='bx bx-menu'></i>
             
-            <form action="#">
+            <form action="{{ route('dashboard.livre.lSearch') }}" method="GET">
                 <div class="form-input">
-                    <input type="search" placeholder="Search...">
+                    <input type="search" name="search" placeholder="Recherche de livre..." required>
                     <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
                 </div>
             </form>
@@ -93,10 +103,10 @@
             <label for="switch-mode" class="switch-mode"></label>
             <a href="#" class="notification">
                 <i class='bx bxs-bell'></i>
-                <span class="num">8</span>
+                {{-- <span class="num">8</span> --}}
             </a>
             <a href="#" class="profile">
-                <img src="{{ asset('image/logo/biblioshop_logo.png') }}">
+                <img src="{{ asset('image/logo/biblioshop_logo5.png') }}">
             </a>
         </nav>
 

@@ -1,0 +1,221 @@
+.detail-livre_section {
+    padding: 60px 0;
+    background-color: #f9f9f9;
+}
+
+.detail-livre_title h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.section_livres_item {
+    display: flex;
+    gap: 40px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 60px;
+}
+
+.section_livres_item .image img {
+    max-width: 300px;
+    border-radius: 6px;
+}
+
+.section_livres_item .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.section_livres_item .content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.section_livres_item .content p {
+    font-size: 1rem;
+    color: #333;
+}
+
+.section_livres_item_button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.section_livres_item_button:hover {
+    background-color: #0056b3;
+}
+
+/* Livres similaires */
+
+/* .livres-similaires {
+    margin-top: 60px;
+}
+
+.livres-similaires_title h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.similaires {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.similaires_item {
+    flex: 1 1 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+}
+
+.similaires_item_card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.similaires_item_card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.similaires_item_card_body {
+    padding: 15px;
+}
+
+.similaires_item_card_title h5 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.similaires_item_card_price_text {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.similaires_item_card_action {
+    padding: 0 15px 15px;
+}
+
+.similaires_item_card_action .btn {
+    width: 100%;
+} */
+
+.livres-similaires {
+    margin-top: 60px;
+}
+
+.livres-similaires_title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.livres-similaires_title h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.livres-similaires_title p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Grille de livres similaires */
+.similaires {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.similaires_item {
+    flex: 1 1 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+    display: flex;
+}
+
+.similaires_item_card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    width: 100%;
+}
+
+.similaires_item_card:hover {
+    transform: translateY(-5px);
+}
+
+.similaires_item_card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.similaires_item_card_body {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.similaires_item_card_title h5 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.similaires_item_card_auteur p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.similaires_item_card_price_text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.similaires_item_card_action {
+    padding: 0 15px 15px;
+}
+
+.similaires_item_card_action .btn {
+    width: 100%;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+@media (max-width: 992px) {
+    .similaires_item {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 576px) {
+    .similaires_item {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
