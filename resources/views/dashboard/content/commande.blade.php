@@ -31,7 +31,7 @@
             <p><strong>Client :</strong> {{ $commande->user->name }}</p>
             <p><strong>Date de paiement :</strong> {{ $commande->date_paiement }}</p>
             <p><strong>Statut :</strong> {{ ucfirst($commande->statut) }}</p>
-            <p><strong>Prix total :</strong> {{ number_format($commande->prix_total, 2) }} €</p>
+            <p><strong>Prix total :</strong> {{ number_format($commande->prix_total, 2) }} FCFA</p>
         </div>
         <!-- Formulaire pour changer le statut -->
         <form action="{{ route('commande.updateStatut', $commande->id) }}" method="POST" class="mb-4">
@@ -55,8 +55,8 @@
                     <th>Titre du livre</th>
                     <th>Auteur</th>
                     <th>Quantité</th>
-                    <th>Prix unitaire (€)</th>
-                    <th>Total (€)</th>
+                    <th>Prix unitaire (FCFA)</th>
+                    <th>Total (FCFA)</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +74,7 @@
             <tfoot>
                 <tr>
                     <th colspan="5" class="text-right">Total :</th>
-                    <th>{{ number_format($commande->prix_total, 2) }} €</th>
+                    <th>{{ number_format($commande->prix_total, 2) }} FCFA</th>
                 </tr>
             </tfoot>
 
