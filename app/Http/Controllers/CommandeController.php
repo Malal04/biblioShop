@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AdminNotificationMail;
+use App\Mail\CommandeDetailsMail;
 use App\Mail\FactureMail;
 use Illuminate\Http\Request;
 use App\Models\Commande;
 use App\Models\DetailCommande;
 use App\Models\Livre;
 use App\Models\Paiement;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class CommandeController extends Controller
 {
@@ -124,11 +127,18 @@ class CommandeController extends Controller
 
         Mail::to('mamadou1502@gmail.com')->send(new AdminNotificationMail($commande));
 
-
-
+        $pdf = Pdf::loadView('dashboard.content.pdfCommande', compact('commande'));
+        $pdfPath = 'factures/commande_'.$commande->id.'.pdf';
+        Storage::put($pdfPath, $pdf->output());
+        
         return response()->json([
-            'message' => 'Commande validée avec succès. La facture a été envoyée.'
-        ]);
+            'message' => 'Commande validée avec succès.',
+            'facture_url' => asset('storage/'.$pdfPath)
+        ]);        
+
+        // return response()->json([
+        //     'message' => 'Commande validée avec succès. La facture a été envoyée.'
+        // ]);
     }
     
     public function updateStatut(Request $request, Commande $commande)
@@ -142,13 +152,41 @@ class CommandeController extends Controller
 
         return redirect()->back()->with('success', 'Statut de la commande mis à jour avec succès.');
     }
-
     public function show($id)
     {
         $commande = Commande::with(['user', 'details.livre'])->findOrFail($id);
         return view('dashboard.content.commande', compact('commande'));
     }
 
+    public function indexCommande(){
+        $commandes = Commande::with(['user', 'details.livre', 'paiement'])->get();
+        return view('dashboard.content.indexCommande', compact('commandes'));
+    }
+
+    public function sCommande($id)
+    {
+        $commande = Commande::with(['user', 'details.livre', 'paiement'])->findOrFail($id);
+
+        return view('dashboard.content.showCommande', compact('commande'));
+    }
+
+    public function sendEmail($id)
+    {
+        $commande = Commande::with(['user', 'details.livre', 'paiement'])->findOrFail($id);
+
+        Mail::to($commande->user->email)->send(new CommandeDetailsMail($commande));
+
+        return redirect()->back()->with('success', 'Email envoyé avec succès !');
+    }
+
+    public function exportPDF($id)
+    {
+        $commande = Commande::with(['user', 'details.livre', 'paiement'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('dashboard.content.pdfCommande', compact('commande'));
+
+        return $pdf->download('commande_'.$commande->id.'.pdf');
+    }
 
 }
 

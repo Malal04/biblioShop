@@ -16,4 +16,6 @@
 
 <p>Statut : <strong>{{ ucfirst($commande->statut) }}</strong></p>
 
+<p>Facture : <a href="{{ route('commandes.pdf', $commande->id) }}" class="btn btn-outline-danger">📄 PDF</a></p>
+
 <p>À bientôt sur <strong>BiblioShop</strong> 📚</p>

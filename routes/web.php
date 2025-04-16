@@ -38,6 +38,10 @@ Route::get('/livres', [PublicController::class, 'livre_index'])->name('public_pa
 
 Route::put('/commandes/{commande}/statut', [CommandeController::class, 'updateStatut'])->name('commande.updateStatut');
 Route::get('/commandes/{commande}', [CommandeController::class, 'show'])->name('commande.show');
+Route::get('dashboard/commandes', [CommandeController::class, 'indexCommande'])->name('commandes.indexCommande');
+Route::get('/commandes/{id}', [CommandeController::class, 'sCommande'])->name('commandes.showCommandes');
+Route::get('/commandes/{id}/email', [CommandeController::class, 'sendEmail'])->name('commandes.email');
+Route::get('/commandes/{id}/pdf', [CommandeController::class, 'exportPDF'])->name('commandes.pdf');
 
 
 Route::prefix('dashboard/categorie')->name('dashboard.categorie.')->group(function() {

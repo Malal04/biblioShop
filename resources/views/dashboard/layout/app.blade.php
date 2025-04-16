@@ -46,8 +46,14 @@
             </li>
             <li>
                 <a href="{{ route('dashboard.livre.lCreate') }}">
-                    <i class="bx bxs-book"></i> </i>
+                    <i class="bx bxs-book"></i></i>
                     <span class="text">Ajouter un livre</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('commandes.indexCommande') }}">
+                    <i class="bx bxs-cart"></i>
+                    <span class="text">Commandes</span>
                 </a>
             </li>
             <li>

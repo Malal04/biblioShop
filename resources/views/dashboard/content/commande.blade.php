@@ -4,7 +4,7 @@
 
     <div class="head-title">
         <div class="left">
-            <h1>Commandes</h1>
+            <h1>Commandes {{ $commande->user->name }}</h1>
             <ul class="breadcrumb">
                 <li>
                     <a href="{{ route('admin_dashboard') }}">Dashboard</a>
@@ -79,6 +79,14 @@
             </tfoot>
 
         </table>
+
+        <div class="btn-group mb-3">
+            <a href="#" onclick="window.print()" class="btn btn-outline-dark">🖨️ Imprimer</a>
+            <a href="{{ route('commandes.pdf', $commande->id) }}" class="btn btn-outline-danger">📄 PDF</a>
+            <a href="{{ route('commandes.email', $commande->id) }}" class="btn btn-outline-primary">📧 Email</a>
+            <a href="{{ route('commandes.indexCommande') }}" class="btn btn-secondary mt-3">← Retour à la liste</a>
+        </div>
+        
     </div>
 
 @endsection
