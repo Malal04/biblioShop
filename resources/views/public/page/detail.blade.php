@@ -41,7 +41,7 @@
                                     <a href="{{ route('public_page') }}">Accueil</a>
                                 </li>
                                 <li>
-                                    <a href="#">Livres</a>
+                                    <a href="{{ route('public_page.livre') }}">Livres</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('public_page.services') }}">Services</a>

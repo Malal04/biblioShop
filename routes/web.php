@@ -35,6 +35,8 @@ Route::post('/commande', [CommandeController::class, 'passerCommande'])->name('c
 Route::get('/mes-commandes', [CommandeController::class, 'index'])->name('commandes.index')->middleware('auth');
 Route::post('/commande/valider', [CommandeController::class, 'validerCommander'])->name('commande.valider');
 Route::get('/livres', [PublicController::class, 'livre_index'])->name('public_page.livre');
+Route::get('/recherche', [PublicController::class, 'search'])->name('public_page.livre.recherche');
+
 
 Route::put('/commandes/{commande}/statut', [CommandeController::class, 'updateStatut'])->name('commande.updateStatut');
 Route::get('/commandes/{commande}', [CommandeController::class, 'show'])->name('commande.show');

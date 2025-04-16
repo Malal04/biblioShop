@@ -28,5 +28,15 @@ class Livre extends Model
         $this->increment('views');
         $this->save();
     }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = '%' . $term . '%';
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('titre', 'LIKE', $term)
+              ->orWhere('auteur', 'LIKE', $term);
+        });
+    }
     
 }

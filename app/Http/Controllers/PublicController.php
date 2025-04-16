@@ -75,54 +75,23 @@ class PublicController extends Controller
 
 
     public function livre_index()
-{
-    return view('public.page.livre', [
-        'nouveaux' => Livre::latest()->take(6)->get(),
-        'meilleuresVentes' => Livre::orderByDesc('sales_count')->take(6)->get(),
-        'populaires' => Livre::orderByDesc('views')->take(6)->get(),
-    ]);
-}
+    {
+        return view('public.page.livre', [
+            'nouveaux' => Livre::latest()->take(6)->get(),
+            'meilleuresVentes' => Livre::orderByDesc('sales_count')->take(6)->get(),
+            'populaires' => Livre::orderByDesc('views')->take(6)->get(),
+        ]);
+    }
+    
+    
+    public function search(Request $request)
+    {
+        $term = $request->input('q');
 
+        $livres = Livre::query()->search($term)->paginate(12);
+
+        return view('public.page.search', compact('livres', 'term'));
+    }
 
     
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

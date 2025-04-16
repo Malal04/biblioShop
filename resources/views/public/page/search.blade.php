@@ -4,11 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>{{ config('app.name') }} - Commande - Livres et plus - BiblioShop</title>
+        <title>{{ config('app.name') }} - Livres et plus - BiblioShop</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="commande-passer-url" content="{{ route('commande.passer') }}">
-        <meta name="commande-valider-url" content="{{ route('commande.valider') }}">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -19,9 +18,8 @@
         <link rel="stylesheet" href="{{ asset('css/public/header.css') }}">
         <link rel="stylesheet" href="{{ asset('css/public/jumbo.css') }}">
         <link rel="stylesheet" href="{{ asset('css/public/footer.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/public/category.css') }}">
         <link rel="stylesheet" href="{{ asset('css/public/pagner.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/public/commande.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/public/livre.css') }}">
     </head>
     <body>
 
@@ -121,7 +119,7 @@
                             <div class="jumbo_title">
                                 <h1>BiblioShop - Livres et plus</h1>
                                 <p class="jumbo_title_p">
-                                    Mes Commandes {{ Auth::user()->name }}
+                                    Tous les livres et les produits que vous cherchez sont ici !
                                 </p>
                             </div>
                             <div class="jumbo_reseau">
@@ -138,35 +136,34 @@
                 </div>
             </section>
 
-            <section class="section_commande">
+            <section class="section_livre py-5">
                 <div class="container">
-                    <h2>Mes commandes {{ Auth::user()->name }}</h2>
-                    @forelse ($commandes as $commande)
-                        <div class="commande-card mb-4 p-3 border rounded">
-                            <h4>Commande #{{ $commande->id }} - {{ $commande->created_at->format('d/m/Y H:i') }}</h4>
-                            <p>Statut : <strong>{{ ucfirst($commande->statut) }}</strong></p>
-                            <p>Total : <strong>{{ number_format($commande->prix_total, 2) }} FCFA</strong></p>
-            
-                            <ul class="details">
-                                @foreach ($commande->details as $detail)
-                                    <li>
-                                        <strong>{{ $detail->livre->titre }}</strong><br>
-                                        Quantité : {{ $detail->quantite }}<br>
-                                        Prix : {{ number_format($detail->prix, 2) }} FCFA
-                                    </li>
+                    <section class="mb-5">
+                        <h2 class="mb-4">Résultats pour : "{{ $term }}"</h2>
+                         
+                        @if($livres->count())
+                            <div class="row">
+                                @foreach ($livres as $livre)
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100 shadow-sm">
+                                            <img src="{{ asset('storage/' . $livre->image) }}" class="card-img-top" alt="{{ $livre->titre }}" style="height: 230px; object-fit: cover;">
+                                            <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title"><strong>Titre :</strong> {{ $livre->titre }}</h5>
+                                            <p class="card-text"><strong>Auteur :</strong> {{ $livre->auteur }}</p>
+                                            <p class="card-text"><strong>Prix :</strong> {{ number_format($livre->prix, 0, ',', ' ') }} FCFA</p>
+                                            <a href="{{ route('public_page.livre.show', $livre->id) }}" class="btn livres">Voir plus</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
-                            </ul>
-            
-                            <button class="valider_commande btn {{ $commande->statut === 'payée' ? 'btn-success disabled' : 'btn-primary' }}"
-                                    data-id="{{ $commande->id }}"
-                                    {{ $commande->statut === 'payée' ? 'disabled' : '' }}>
-                                {{ $commande->statut === 'payée' ? 'Déjà validée' : 'Valider la commande' }}
-                            </button>
-                        </div>
-                    @empty
-                        <p>Vous n'avez encore passé aucune commande.</p>
-                    @endforelse
-                </div>
+                            </div>
+                            {{ $livres->links() }}
+                        @else
+                            <p>Aucun livre trouvé pour "{{ $term }}".</p>
+                        @endif
+
+
+                    </section>
             </section>
 
         </main>
@@ -225,7 +222,6 @@
     
     <script src="{{ asset('js/ls/jumbo.js') }}"></script>
     <script src="{{ asset('js/ls/section.js') }}"></script>
-    <script src="{{ asset('js/ls/commade.js') }}"></script>
-
+    
 </body>
 </html>

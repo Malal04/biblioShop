@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Commande #{{ $commande->id }}</title>
     <style>
-        /* ---- GLOBAL ---- */
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 14px;
@@ -12,6 +11,28 @@
             line-height: 1.6;
             background-color: #fff;
             padding: 20px;
+        }
+
+        /* ---- ENTÊTE ---- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .company-info {
+            text-align: right;
+            font-size: 13px;
+            color: #555;
         }
 
         /* ---- TITRES ---- */
@@ -67,13 +88,8 @@
             background-color: #f7f7f7;
         }
 
-        /* ---- ALIGNEMENT ---- */
         .text-right {
             text-align: right;
-        }
-
-        .text-center {
-            text-align: center;
         }
 
         /* ---- PIED DE PAGE ---- */
@@ -82,23 +98,32 @@
             font-size: 12px;
             text-align: center;
             color: #888;
-        }
-
-        /* ---- REMARQUE/NOTE ---- */
-        .note {
-            font-size: 13px;
-            font-style: italic;
-            color: #555;
-            margin-top: 10px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
         }
 
     </style>
 </head>
 <body>
 
+    <!-- En-tête de facture -->
+    <div class="header">
+        <div class="logo">
+            <img src="{{ asset('image/logo/biblioshop_logo5.png') }}" alt="BiblioShop Logo" width="50">
+            <h3>📚 BiblioShop</h3>
+        </div>
+        <div class="company-info">
+            BiblioShop SARL<br>
+            Apix-Keur Massar, Dakar, Sénégal<br>
+            Tél : +221 77 123 45 67<br>
+            Email : support@biblioshop.com<br>
+            NINEA : 123456789XYZ
+        </div>
+    </div>
+
     <div>
-        <h1>Détails de la commande #{{ $commande->id }} - {{ $commande->user->name }}</h1>
-        <p>Date : {{ $commande->created_at->format('d/m/Y H:i') }}</p>
+        <h1>Facture - Commande #{{ $commande->id }}</h1>
+        <p>Date de commande : {{ $commande->created_at->format('d/m/Y H:i') }}</p>
     </div>
 
     <div class="section">
@@ -148,9 +173,10 @@
         @endif
     </div>
 
-    <div>
-        <p>À bientôt sur <strong>BiblioShop</strong> 📚 et vous remercions pour votre commande !</p>
-    </div>
+    <footer>
+        Merci pour votre confiance.<br>
+        Cette facture a été générée automatiquement par BiblioShop.
+    </footer>
 
 </body>
 </html>

@@ -31,8 +31,10 @@
                             <img src="{{ asset('image/logo/biblioshop_logo5.png') }}" alt="BiblioShop Logo">
                         </div>
                         <div class="header_search">
-                            <input type="text" placeholder="Search..." id="search">
-                            <i class='bx bxs-search' id="search-icon"></i>
+                            <form action="{{ route('public_page.livre.recherche') }}" method="GET" id="search">
+                                <input type="text" name="q" placeholder="Rechercher un livre ou auteur..." required>
+                                <button type="submit"><i class='bx bxs-search' id="search-icon"></i></button>
+                            </form>
                         </div>
         
                         <div class=" header_menu">
